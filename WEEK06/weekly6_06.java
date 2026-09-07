@@ -1,13 +1,32 @@
-public static int marsExploration(String s) {
-    int count = 0;
+class Solution {
+    public List<Integer> findAnagrams(String s, String p) {
+        List<Integer> result = new ArrayList<>();
 
-    for (int i = 0; i < s.length(); i++) {
-        char expected = "SOS".charAt(i % 3);
-
-        if (s.charAt(i) != expected) {
-            count++;
+        if (s.length() < p.length()) {
+            return result;
         }
-    }
 
-    return count;
+        int[] pCount = new int[26];
+        int[] window = new int[26];
+
+        for (char c : p.toCharArray()) {
+            pCount[c - 'a']++;
+        }
+
+        int k = p.length();
+
+        for (int i = 0; i < s.length(); i++) {
+            window[s.charAt(i) - 'a']++;
+
+            if (i >= k) {
+                window[s.charAt(i - k) - 'a']--;
+            }
+
+            if (i >= k - 1 && Arrays.equals(pCount, window)) {
+                result.add(i - k + 1);
+            }
+        }
+
+        return result;
+    }
 }
