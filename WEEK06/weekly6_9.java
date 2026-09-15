@@ -1,4 +1,4 @@
-class Solution {
+class weekly6_9 {
     public String longestPalindrome(String s) {
 
         if (s == null || s.length() < 2) {
